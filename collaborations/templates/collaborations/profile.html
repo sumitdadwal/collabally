@@ -1,0 +1,19 @@
+{% if is_collaborator %}
+  <!-- Display Collaborator specific info -->
+  <h2>Collaborator Profile</h2>
+  <p>Active projects: {{ profile.active_projects }}</p>
+{% else %}
+  <!-- Display Looking for Collaborator specific info -->
+  <h2>Looking for a Collaborator Profile</h2>
+  <p>Posted projects: {{ profile.posted_projects }}</p>
+{% endif %}
+<!-- Common info -->
+{% if profile.profile_picture %}
+
+    <img src="{{ profile.profile_picture.url }}" alt="Profile picture">
+{% else %}
+    {% load static %}
+    <img src="{% static 'images/deafult.jpg' %}" alt="Default profile picture">
+{% endif %}
+
+<p>Edit Account Options</p>
