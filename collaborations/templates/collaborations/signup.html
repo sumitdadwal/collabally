@@ -1,12 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post" enctype="multipart/form-data">
+<div class="container mt-5">
+  <h2>Sign Up</h2>
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
-    <label for="id_profile_picture">Profile picture (optional):</label>
-        {{ profile_form.profile_picture }}  
-    <button type="submit">Sign up</button>
-</form>
+    {% for field in user_form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+      </div>
+    {% endfor %}
+    {% for field in profile_form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+      </div>
+    {% endfor %}
+    <div class="form-group">
+      <label for="">Profile picture (optional):</label>
+      {{ profile_form.profile_picture }}
+    </div>
+    <button type="submit" class="btn btn-primary">Sign up</button>
+  </form>
+</div>
 {% endblock %}

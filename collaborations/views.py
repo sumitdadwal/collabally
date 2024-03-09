@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from .forms import UserCreateForm, ProfileForm
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
-from .models import Profile, Project
-from .forms import ProjectForm
+from .models import Profile
+from projects.models import Project
+from projects.forms import ProjectForm
 from django.contrib.auth.decorators import login_required
 
 

@@ -1,0 +1,44 @@
+{% load static %}
+
+<form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="container mt-4">
+        <h2 class="mb-4">Project Details</h2>
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {% if field.is_hidden %}
+                    {{ field }}
+                {% else %}
+                    <div class="{% if field.errors %}input-group has-validation mb-3{% else %}input-group mb-3{% endif %}">
+                        {{ field }} <!-- Ensuring Bootstrap's form-control class is added -->
+                        {% if field.help_text %}
+                            <div class="form-text">{{ field.help_text }}</div>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <!-- Improved input for multiple image uploads with Bootstrap custom file input style -->
+        <div class="custom-file mb-3">
+            <input type="file" class="custom-file-input" id="id_project_images" name="project_images" multiple>
+            <label class="custom-file-label" for="id_project_images">Choose images...</label>
+            <div class="form-text text-muted">Hold down the Ctrl (Windows) or Command (Mac) button to select multiple images.</div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+    </div>
+</form>
+
+<script>
+// Example of JavaScript needed to update the custom file input label with selected file names
+document.querySelector('.custom-file-input').addEventListener('change', function(e){
+    var fileName = e.target.files.length + ' file(s) selected';
+    var nextSibling = e.target.nextElementSibling;
+    nextSibling.innerText = fileName;
+});
+</script>
